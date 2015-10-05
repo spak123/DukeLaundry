@@ -1,0 +1,8 @@
+@(laundryInfo: models.LaundryDB.MachinesInRoomInfo)
+
+@main("Laundry Machines in Dorm: " + laundryInfo.dormName 
+      + " Room: " + laundryInfo.laundryRoom) { } {
+  <p>
+    Status: laundryInfo.status
+  </p>
+}

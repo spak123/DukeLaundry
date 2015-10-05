@@ -4,7 +4,8 @@
   <p>Click on room below to view more information:
     <ul>
       @for(name <- drinkers) {
-        <li><a href="@routes.Application.viewDrinker(name)">@name</a></li>
+        <!-- <li><a href="@routes.Application.viewDrinker(name)">@name</a></li> -->
+        <li><a href="@routes.Application.viewDrinker("lala")">Hello</a></li>
       }
     </ul>
   </p>

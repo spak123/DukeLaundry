@@ -11,19 +11,29 @@ import play.data.*;
 import views.html.*;
 
 import models.BeerDB;
+import models.LaundryDB;
 
 public class Application extends Controller {
 
     public static Result index() throws SQLException {
-        return ok(index.render(BeerDB.getAllDrinkerNames()));
+        // return ok(index.render(BeerDB.getAllDrinkerNames()));
+        return ok(index.render(LaundryDB.getAllMachineNames()));
     }
 
+    // public static Result viewDrinker(String name) throws SQLException {
+    //     BeerDB.DrinkerInfo drinkerInfo = BeerDB.getDrinkerInfo(name);
+    //     if (drinkerInfo == null) {
+    //         return ok(error.render("No drinker named \"" + name + "\""));
+    //     } else{
+    //         return ok(drinker.render(drinkerInfo));
+    //     }
+    // }
     public static Result viewDrinker(String name) throws SQLException {
-        BeerDB.DrinkerInfo drinkerInfo = BeerDB.getDrinkerInfo(name);
-        if (drinkerInfo == null) {
-            return ok(error.render("No drinker named \"" + name + "\""));
-        } else{
-            return ok(drinker.render(drinkerInfo));
+        LaundryDB.MachinesInRoomInfo machinesInfo = LaundryDB.getMachinesInRoomInfo("wannamaker", "001");
+        if (machinesInfo == null) {
+            return ok(error.render("No machines!"));
+        } else {
+            return ok(laundry.render(machinesInfo));
         }
     }
 
