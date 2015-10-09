@@ -12,16 +12,23 @@ public class LaundryDB {
         public String laundryRoom = null; //laundry room #
         public String status = null; //busy, avail, out of order
         public String type = null; //washer or dryer
+        public ArrayList<String> machines = new ArrayList<String>();
         public MachinesInRoomInfo() {
         }
-        public MachinesInRoomInfo(String dormName,
-                                  String laundryRoom,
-                                  String status,
-                                  String type) {
+        // public MachinesInRoomInfo(String dormName,
+        //                           String laundryRoom,
+        //                           String status,
+        //                           String type) {
+        //     this.dormName = dormName;
+        //     this.laundryRoom = laundryRoom;
+        //     this.status = status;
+        //     this.type = type;
+        // }
+        public MachinesInRoomInfo(String dormName) {
             this.dormName = dormName;
-            this.laundryRoom = laundryRoom;
-            this.status = status;
-            this.type = type;
+        }
+        public MachinesInRoomInfo(ArrayList<String> machines) {
+            this.machines = machines;
         }
     }
 
@@ -93,6 +100,7 @@ public class LaundryDB {
     throws SQLException {
         Connection connection = null;
         MachinesInRoomInfo machinesInfo = null;
+        ArrayList machines = new ArrayList<String>();
         try {
             connection = DB.getConnection();
             // retrieve basic info:
@@ -102,9 +110,18 @@ public class LaundryDB {
             statement.setString(1, dormName);
             statement.setString(2, laundryRoom);
             ResultSet rs = statement.executeQuery();
+            
             if (! rs.next()) {
                 return null;
             }
+            machines.add(rs.getString(1));
+            while (rs.next()) {
+                String machineID = rs.getString(1);
+                machines.add(machineID);
+            }
+            machinesInfo = new MachinesInRoomInfo(machines);
+
+
             //String address = rs.getString(1);
             rs.close();
             statement.close();
@@ -147,6 +164,7 @@ public class LaundryDB {
             }
         }
         return machinesInfo;
+        // return something;
     }
 
     // public static DrinkerInfo getDrinkerInfo(String name) throws SQLException {

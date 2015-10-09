@@ -1,14 +1,11 @@
-laundry=# SELECT * FROM Student;
+SELECT * FROM Student;
  netid |        email        
 -------+---------------------
  abu22 | abu22@laundrydb.com
  bnu54 | bnu54@laundrydb.com
 (2 rows)
 
-
-
-laundry=# SELECT * FROM MachineLoc
-laundry-# ;
+SELECT * FROM MachineLoc;
  dorm_name  | laundry_room | machine_num | machine_id 
 ------------+--------------+-------------+------------
  wannamaker | 001          | a1          | 1
@@ -21,9 +18,7 @@ laundry-# ;
  wannamaker | 001          | b4          | 8
 (8 rows)
 
-
-laundry=# SELECT * FROM Machine
-laundry-# ;
+SELECT * FROM Machine;
  id |  status   | start_time | machine_type 
 ----+-----------+------------+--------------
  2  | available |            | washer
@@ -34,8 +29,7 @@ laundry-# ;
  5  | busy      | 01:00:00   | dryer
 (6 rows)
 
-
-laundry=# SELECT * FROM MachinesInUse;
+SELECT * FROM MachinesInUse;
  id | duration | student_id 
 ----+----------+------------
  1  |       26 | abu22
@@ -43,8 +37,8 @@ laundry=# SELECT * FROM MachinesInUse;
 (2 rows)
 
 ----------------SAMPLE QUERIES-------------------
-What laundry machines do we have to display based on what the user has selected?
-Note: will store laundry rooms and room number in a DECLARE variable so it can be dynamic
+--What laundry machines do we have to display based on what the user has selected?
+--Note: will store laundry rooms and room number in a DECLARE variable so it can be dynamic
 --User selects "wannamaker" on web interface
 --We query out laundry rooms in wannamaker:
 SELECT DISTINCT laundry_room FROM MachineLoc WHERE dorm_name = 'wannamaker';
@@ -89,7 +83,6 @@ WHERE M.machine_id = Machine.id;
 --Based on status, the machines will be color coded so user knows what is being used by him/herself (blue)
 --what is busy because someone else is using it (red), what is available (green),
 --and what is out of order (gray)
-
 --We also need information for when a student begins to use a machine to know when to
 --notify the student when the machine is done via email
 --Start time will be used on the application code side to determine when the machine is done
@@ -97,10 +90,9 @@ WHERE M.machine_id = Machine.id;
 --NOTE: student_id will also be stored in a dynamic variable in the actual implementation
 SELECT Machine.id, MachinesInUse.duration, MachinesInUse.student_id, 
 Machine.start_time, Machine.machine_type
- FROM MachinesInUse, Machine WHERE student_id = 'abu22' AND MachinesInUse.id = Machine.id;
+FROM MachinesInUse, Machine WHERE student_id = 'abu22' AND MachinesInUse.id = Machine.id;
  id | duration | student_id | start_time | machine_type 
 ----+----------+------------+------------+--------------
  1  |       26 | abu22      | 01:00:00   | washer
 (1 row)
-
 

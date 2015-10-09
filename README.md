@@ -1,4 +1,3 @@
-This is your new Play application
-=================================
-
-This file will be packaged with your application, when using `activator dist`.
+How to create and load the sample database:
+Run: 
+dropdb laundry; createdb laundry; psql -af tables.sql laundry;

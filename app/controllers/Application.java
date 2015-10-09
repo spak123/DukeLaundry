@@ -28,7 +28,7 @@ public class Application extends Controller {
     //         return ok(drinker.render(drinkerInfo));
     //     }
     // }
-    public static Result viewDrinker(String name) throws SQLException {
+    public static Result viewDrinker(String drinker) throws SQLException {
         LaundryDB.MachinesInRoomInfo machinesInfo = LaundryDB.getMachinesInRoomInfo("wannamaker", "001");
         if (machinesInfo == null) {
             return ok(error.render("No machines!"));
